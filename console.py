@@ -103,8 +103,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj.__dict__[arg[2]] = arg[3]
             obj.updated_at = datetime.now()
-
-
         elif type(eval(arg[2])) == dict:
             obj = storage.all()["{}.{}".format(arg[0], arg[1])]
             for k, v in eval(arg[2]).items():
@@ -115,8 +113,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
                 obj.updated_at = datetime.now()
-        storage.save()  
-
+        storage.save()
 
     def do_quit(self, args):
         """Quit command to exit the console\n"""
@@ -130,6 +127,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when an empty line is entered"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
