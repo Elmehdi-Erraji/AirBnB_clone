@@ -4,12 +4,14 @@ file_storage module
 """
 import json
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
     """FileStorage Class"""
     __file_path = "file.json"
     __objects = {}
+    class_dict = {"BaseModel": BaseModel, "User": User}
 
     def all(self):
         """returns the dictionary"""
@@ -29,13 +31,13 @@ class FileStorage:
             json.dump(serialized, file)
 
     def reload(self):
-        """Deserializes the JSON file to __objects"""
+        """Dokeserializes the JSON file to __objects"""
         try:
             with open(FileStorage.__file_path, "r") as file:
                 deserialized = json.load(file)
                 for key, value in deserialized.items():
                     class_name = value['__class__']
-                    obj = eval(class_name + "(**value)")
+                    obj = self.class_dict[class_name](**value)
                     self.__class__.__objects[key] = obj
         except FileNotFoundError:
             pass
