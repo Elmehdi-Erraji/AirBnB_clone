@@ -5,6 +5,7 @@ The console
 import cmd
 from models import storage
 from models.base_model import BaseModel
+import re
 
 
 class HBNBCommand(cmd.Cmd):
@@ -71,6 +72,38 @@ class HBNBCommand(cmd.Cmd):
                     return
         print(my_list)
 
+     
+    def do_update(self, args):
+        """Updates an instance based on the class\
+        name and id by adding or updating attribute.
+        """
+        if args == "" or args is None:
+            print("** class name missing **")
+            return
+
+        rex = '^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+        match = re.search(rex, args)
+        if not match:
+            print("** class name missing **")
+        elif match.group(1) not in storage.classes():
+            print("** class doesn't exist **")
+        elif match.group(2) is None:
+            print("** instance id missing **")
+        elif match.group(3) is None:
+            print("** attribute name missing **")
+        elif match.group(4) is None:
+            print("** value missing **")
+        else:
+            value = match.group(4).replace('"', '')
+            key = "{}.{}".format(match.group(1), match.group(2))
+            if key not in storage.all():
+                print("** no instance found **")
+            else:
+                attributes = storage.attributes()[match.group(1)]
+                if match.group(3) in attributes:
+                    value = attributes[match.group(3)](value)
+                setattr(storage.all()[key], match.group(3), value)
+                storage.all()[key].save()
 
     def do_quit(self, args):
         """Quit command to exit the console\n"""
