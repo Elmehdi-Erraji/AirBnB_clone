@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""Defines unittests for models/engine/file_storage.py.
+Unittest classes:
+    TestFileStorage_instantiation
+    TestFileStorage_methods
+"""
 import unittest
 import json
 from models.engine.file_storage import FileStorage
@@ -22,7 +28,8 @@ class TestFileStorage(unittest.TestCase):
     def test_new_method(self):
         # Test the new() method
         self.storage.new(self.base_model)
-        obj_key = "{}.{}".format(self.base_model.__class__.__name__, self.base_model.id)
+        obj_key = "{}.{}".format(self.base_model.__class__.__name__,
+                                 self.base_model.id)
         self.assertIn(obj_key, self.storage.all())
 
     def test_save_and_reload_methods(self):
@@ -30,15 +37,15 @@ class TestFileStorage(unittest.TestCase):
         self.storage.new(self.base_model)
         self.storage.save()
         self.storage.reload()
-        obj_key = "{}.{}".format(self.base_model.__class__.__name__, self.base_model.id)
+        obj_key = "{}.{}".format(self.base_model.__class__.__name__,
+                                 self.base_model.id)
         self.assertIn(obj_key, self.storage.all())
 
     def test_reload_method_on_empty_file(self):
-         # Test the reload() method when the JSON file is empty
+        # Test the reload() method when the JSON file is empty
         with open(self.storage._FileStorage__file_path, 'w') as f:
             f.write('{}')
         self.storage.reload()
         all_objects = self.storage.all()
-
         # Verify that BaseModel objects are in the dictionary
         self.assertIn(self.base_model, all_objects.values())
