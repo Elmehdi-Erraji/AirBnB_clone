@@ -5,13 +5,25 @@ file_storage module
 import json
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
     """FileStorage Class"""
     __file_path = "file.json"
     __objects = {}
-    class_dict = {"BaseModel": BaseModel, "User": User}
+    class_dict = {"BaseModel": BaseModel,
+                  "User": User,
+                  "Place": Place,
+                  "State": State,
+                  "City": City,
+                  "Amenity": Amenity,
+                  "Review": Review
+                  }
 
     def all(self):
         """returns the dictionary"""
