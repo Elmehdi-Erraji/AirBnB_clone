@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-review module
+state  module
 """
 from models.base_model import BaseModel
 
 
-class Review(BaseModel):
+class State(BaseModel):
     """
-    Review class
+    State class
     """
 
     name = ""
