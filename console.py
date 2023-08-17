@@ -4,15 +4,20 @@ The console
 """
 import cmd
 from models import storage
+from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
-from datetime import datetime
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """The Console Class"""
     prompt = '(hbnb)'
-    classes = {"BaseModel": BaseModel, "User": User}
+    classes = {"BaseModel": BaseModel, "User": User, "Place": Place, "State": State, "City": City, "Amenity": Amenity, "Review": Review}
 
     def do_create(self, args):
         """Creates a new instance of BaseModel\n"""
