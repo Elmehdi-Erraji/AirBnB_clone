@@ -49,3 +49,7 @@ class TestFileStorage(unittest.TestCase):
         all_objects = self.storage.all()
         # Verify that BaseModel objects are in the dictionary
         self.assertIn(self.base_model, all_objects.values())
+
+
+if __name__ == "__main__":
+    unittest.main()

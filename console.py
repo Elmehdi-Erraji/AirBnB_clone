@@ -4,19 +4,20 @@ The console
 """
 import cmd
 from models import storage
-from models.base_model import BaseModel
-<<<<<<< HEAD
-import re
-=======
-from models.user import User
 from datetime import datetime
->>>>>>> df475f064965e62c374f58d17ce7dd504a90dcff
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
     """The Console Class"""
     prompt = '(hbnb)'
-    classes = {"BaseModel": BaseModel, "User": User}
+    classes = {"BaseModel": BaseModel, "User": User, "Place": Place, "State": State, "City": City, "Amenity": Amenity, "Review": Review}
 
     def do_create(self, args):
         """Creates a new instance of BaseModel\n"""
@@ -117,44 +118,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     obj.__dict__[k] = v
                 obj.updated_at = datetime.now()
-<<<<<<< HEAD
-        storage.save()  
-
-     
-    def do_update(self, args):
-        """Updates an instance based on the class\
-        name and id by adding or updating attribute.
-        """
-        if args == "" or args is None:
-            print("** class name missing **")
-            return
-
-        rex = '^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
-        match = re.search(rex, args)
-        if not match:
-            print("** class name missing **")
-        elif match.group(1) not in storage.classes():
-            print("** class doesn't exist **")
-        elif match.group(2) is None:
-            print("** instance id missing **")
-        elif match.group(3) is None:
-            print("** attribute name missing **")
-        elif match.group(4) is None:
-            print("** value missing **")
-        else:
-            value = match.group(4).replace('"', '')
-            key = "{}.{}".format(match.group(1), match.group(2))
-            if key not in storage.all():
-                print("** no instance found **")
-            else:
-                attributes = storage.attributes()[match.group(1)]
-                if match.group(3) in attributes:
-                    value = attributes[match.group(3)](value)
-                setattr(storage.all()[key], match.group(3), value)
-                storage.all()[key].save()
-=======
         storage.save()
->>>>>>> d47f1a4f000f70812c0656f742d4e7a4596746c1
 
     def do_quit(self, args):
         """Quit command to exit the console\n"""

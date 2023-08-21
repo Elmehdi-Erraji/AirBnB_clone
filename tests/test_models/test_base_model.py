@@ -69,3 +69,5 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(obj.id, '123')
         self.assertIsInstance(obj.created_at, datetime)
         self.assertIsInstance(obj.updated_at, datetime)
+if __name__ == "__main__":
+    unittest.main()
